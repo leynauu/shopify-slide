@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .custom-hidden {
+        @apply hidden md:block;
+    }
+
+
+    .desktop-hidden {
+        @apply block md:hidden;
+    }
+}

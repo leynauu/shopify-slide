@@ -1,0 +1,181 @@
+{% schema %}
+{
+    "name": "Case Section",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Görseli Yükle"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Başlık",
+            "default": "Everyday items, we have something to suit every occasion."
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Açıklama",
+            "default": "At suspendisse augue lectus arcu, accumsan ut sit posuere vitae sit tincidunt semper eu proin leo gravida cursus."
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Buton Yazısı",
+            "default": "Shop All Everyday Items"
+        },
+        {
+            "type": "image_picker",
+            "id": "product_image_1",
+            "label": "Ürün 1 Görsel"
+        },
+        {
+            "type": "text",
+            "id": "product_title_1",
+            "label": "Ürün 1 Adı"
+        },
+        {
+            "type": "text",
+            "id": "product_price_1",
+            "label": "Ürün 1 Fiyatı"
+        },
+        {
+            "type": "image_picker",
+            "id": "product_image_2",
+            "label": "Ürün 2 Görsel"
+        },
+        {
+            "type": "text",
+            "id": "product_title_2",
+            "label": "Ürün 2 Adı"
+        },
+        {
+            "type": "text",
+            "id": "product_price_2",
+            "label": "Ürün 2 Fiyatı"
+        },
+        {
+            "type": "image_picker",
+            "id": "product_image_3",
+            "label": "Ürün 3 Görsel"
+        },
+        {
+            "type": "text",
+            "id": "product_title_3",
+            "label": "Ürün 3 Adı"
+        },
+        {
+            "type": "text",
+            "id": "product_price_3",
+            "label": "Ürün 3 Fiyatı"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Case Section",
+            "category": "Custom"
+        }
+    ]
+}
+{% endschema %}
+
+<div class="bg-white">
+    <div class="container">
+        <div class="flex flex-wrap">
+            <div class="w-full md:w-1/2 relative">
+                {% if section.settings.image %}
+                    <img src="{{ section.settings.image | img_url: 'original' }}" alt="Görsel" class="w-full h-auto">
+                {% else %}
+                    <p class="text-red-500">Görsel yüklenmedi.</p>
+                {% endif %}
+
+                <!-- Mobil için konumlandırılmış başlık ve buton -->
+                <div class="absolute inset-0 flex flex-col justify-end p-10">
+                    <h2 class="font-custom text-title-size leading-title-line-height font-custom-weight text-white mb-2 desktop-hidden">
+                        {{ section.settings.title }}
+                    </h2>
+                    <a href="{{ section.settings.button_link }}" class="font-button-weight text-button-size leading-button-line-height desktop-hidden mt-4 mb-10 border-b border-white text-white max-w-xs">
+                        {{ section.settings.button_text }}
+                    </a>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 md:p-15 md:pr-0 pl-10 md:pb-0">
+                <h2 class="font-custom text-custom-size leading-custom-line-height font-custom-weight mb-2 custom-hidden">
+                    {{ section.settings.title }}
+                </h2>
+                <p class="text-gray-700 mb-5 custom-hidden">
+                    {{ section.settings.description }}
+                </p>
+                <a href="{{ section.settings.button_link }}" class="font-button-weight text-button-size leading-button-line-height mt-4 mb-10 border-b border-black custom-hidden max-w-xs">
+                    {{ section.settings.button_text }}
+                </a>
+
+                <div class="carousel-container relative md:mt-0 -mt-10">
+                    <div id="carousel" class="flex overflow-hidden transition-transform duration-300 font-body text-button-size">
+                        <!-- Ürün 1 -->
+                        <div class="carousel-slide pl-0 p-6">
+                            {% if section.settings.product_image_1 %}
+                                <img src="{{ section.settings.product_image_1 | img_url: 'original' }}" alt="{{ section.settings.product_title_1 }}">
+                            {% else %}
+                                <p class="text-red-500">Görsel yüklenmedi.</p>
+                            {% endif %}
+                            <h3 class="font-body text-button-size mt-4">{{ section.settings.product_title_1 }}</h3>
+                            <div class="flex flex-col md:flex-row justify-between mt-2">
+                                <span class="font-semibold">{{ section.settings.product_price_1 }}</span>
+                                <div class="flex space-x-2 mt-2 md:mt-0">
+                                    <div class="w-3 h-3 rounded-full bg-custom-blue cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-red cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-purple cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-green cursor-pointer"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ürün 2 -->
+                        <div class="carousel-slide pl-0 p-6">
+                            {% if section.settings.product_image_2 %}
+                                <img src="{{ section.settings.product_image_2 | img_url: 'original' }}" alt="{{ section.settings.product_title_2 }}">
+                            {% else %}
+                                <p class="text-red-500">Görsel yüklenmedi.</p>
+                            {% endif %}
+                            <h3 class="font-body text-button-size mt-4">{{ section.settings.product_title_2 }}</h3>
+                            <div class="flex flex-col md:flex-row justify-between mt-2">
+                                <span class="font-semibold">{{ section.settings.product_price_2 }}</span>
+                                <div class="flex space-x-2 mt-2 md:mt-0">
+                                    <div class="w-3 h-3 rounded-full bg-custom-blue cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-red cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-purple cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-green cursor-pointer"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ürün 3 -->
+                        <div class="carousel-slide pl-0 p-6">
+                            {% if section.settings.product_image_3 %}
+                                <img src="{{ section.settings.product_image_3 | img_url: 'original' }}" alt="{{ section.settings.product_title_3 }}">
+                            {% else %}
+                                <p class="text-red-500">Görsel yüklenmedi.</p>
+                            {% endif %}
+                            <h3 class="font-body text-button-size mt-4">{{ section.settings.product_title_3 }}</h3>
+                            <div class="flex flex-col md:flex-row justify-between mt-2">
+                                <span class="font-semibold">{{ section.settings.product_price_3 }}</span>
+                                <div class="flex space-x-2 mt-2 md:mt-0">
+                                    <div class="w-3 h-3 rounded-full bg-custom-blue cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-red cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-purple cursor-pointer"></div>
+                                    <div class="w-3 h-3 rounded-full bg-custom-green cursor-pointer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="absolute border border-light-600 right-3 top-1/2 transform -translate-y-1/2 bg-transparent text-black p-2 z-10 custom-hidden">
+                        <img src="{{ 'icon-arrow.svg' | asset_url }}" alt="Arrow">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
