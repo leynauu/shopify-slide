@@ -14,9 +14,10 @@ module.exports = {
       },
       padding: {
         '15': '15rem',
+        '30': '30rem',
       },
       maxWidth: {
-        'sm': '18rem',
+        'xs': '18rem',
       },
       fontFamily: {
         custom: ['"ITC Avant Garde Gothic Pro"', 'sans-serif'],

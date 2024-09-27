@@ -64,12 +64,12 @@ scrollRightButton.addEventListener('click', () => {
     slider.scrollLeft += SCROLL_AMOUNT;
 });
 
-function changeImage(imageUrl, element) {
+function changeImage(imageUrl, element, productId) {
     const colorButtons = document.querySelectorAll('.color-button');
     colorButtons.forEach(button => button.classList.remove('selected'));
 
     element.classList.add('selected');
 
-    const productImage = document.getElementById('productImage');
+    const productImage = document.getElementById(`productImage-${productId}`);
     productImage.src = imageUrl;
 }

@@ -24,51 +24,6 @@
             "id": "button_text",
             "label": "Buton Yazısı",
             "default": "Shop All Everyday Items"
-        },
-        {
-            "type": "image_picker",
-            "id": "product_image_1",
-            "label": "Ürün 1 Görsel"
-        },
-        {
-            "type": "text",
-            "id": "product_title_1",
-            "label": "Ürün 1 Adı"
-        },
-        {
-            "type": "text",
-            "id": "product_price_1",
-            "label": "Ürün 1 Fiyatı"
-        },
-        {
-            "type": "image_picker",
-            "id": "product_image_2",
-            "label": "Ürün 2 Görsel"
-        },
-        {
-            "type": "text",
-            "id": "product_title_2",
-            "label": "Ürün 2 Adı"
-        },
-        {
-            "type": "text",
-            "id": "product_price_2",
-            "label": "Ürün 2 Fiyatı"
-        },
-        {
-            "type": "image_picker",
-            "id": "product_image_3",
-            "label": "Ürün 3 Görsel"
-        },
-        {
-            "type": "text",
-            "id": "product_title_3",
-            "label": "Ürün 3 Adı"
-        },
-        {
-            "type": "text",
-            "id": "product_price_3",
-            "label": "Ürün 3 Fiyatı"
         }
     ],
     "presets": [
@@ -79,6 +34,8 @@
     ]
 }
 {% endschema %}
+
+{% assign color_map = "yeşil:#BCD9B2,mavi:#99C3CC,kırmızı:#ff0000,sarı:#99C3CC,mor:#800080" | split: "," %}
 
 <div class="bg-white">
     <div class="container">
@@ -95,50 +52,73 @@
                     <h2 class="font-custom text-title-size leading-title-line-height font-custom-weight text-white mb-2 desktop-hidden">
                         {{ section.settings.title }}
                     </h2>
-                    <a href="{{ section.settings.button_link }}" class="font-button-weight text-button-size leading-button-line-height desktop-hidden mt-4 mb-10 border-b border-white text-white max-w-xs">
+                    <a href="#" class="font-button-weight text-button-size leading-button-line-height desktop-hidden mt-4 mb-10 border-b border-white text-white max-w-xs">
                         {{ section.settings.button_text }}
                     </a>
                 </div>
             </div>
 
             <div class="w-full md:w-1/2 md:p-15 md:pr-0 pl-10 md:pb-0">
-                <h2 class="font-custom text-custom-size leading-custom-line-height font-custom-weight mb-2 custom-hidden">
-                    {{ section.settings.title }}
-                </h2>
-                <p class="text-gray-700 mb-5 custom-hidden">
-                    {{ section.settings.description }}
-                </p>
-                <a href="{{ section.settings.button_link }}" class="font-button-weight text-button-size leading-button-line-height mt-4 mb-10 border-b border-black custom-hidden max-w-xs">
-                    {{ section.settings.button_text }}
-                </a>
-                <div class="carousel-container relative md:mt-0 -mt-10">
-                    <div id="carousel" class="flex overflow-hidden transition-transform duration-300 font-body text-button-size">
-                        <div class="carousel-slide pl-0 p-6">
-                            {% if section.settings.product_image_1 %}
-                                <img id="productImage" src="{{ section.settings.product_image_1 | img_url: 'original' }}" alt="{{ section.settings.product_title_1 }}">
-                            {% else %}
-                                <p class="text-red-500">Görsel yüklenmedi.</p>
-                            {% endif %}
-                            <h3 class="font-body text-button-size mt-4">{{ section.settings.product_title_1 }}</h3>
-                            <div class="flex flex-col md:flex-row justify-between mt-2">
-                                <span class="font-semibold">{{ section.settings.product_price_1 }}</span>
-                                <div class="flex space-x-2 mt-2 md:mt-0">
-                                    {% for variant in product.variants %}
-                                        {% if variant.available %}
-                                            <div class="color-button w-3 h-3 rounded-full cursor-pointer {{ variant.option1 | downcase }}"
-                                                style="background-color: {{ variant.option1 | downcase }};"
-                                                onclick="changeImage('{{ variant.image | img_url: 'original' }}', this)">
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="scrollRight" class="absolute border border-light-600 right-3 top-1/2 transform -translate-y-1/2 bg-transparent text-black p-2 z-10 custom-hidden">
-                        <img src="{{ 'icon-arrow.svg' | asset_url }}" alt="Arrow">
-                    </button>
+                <div class="pr-30 custom-hidden">
+                    <h2 class="font-custom text-custom-size leading-custom-line-height font-custom-weight mb-2">
+                        {{ section.settings.title }}
+                    </h2>
+                    <p class="text-gray-700 mb-5">
+                        {{ section.settings.description }}
+                    </p>
+                    <a href="#" class="font-button-weight text-button-size leading-button-line-height mt-4 mb-10 border-b border-black max-w-xs">
+                        {{ section.settings.button_text }}
+                    </a>
                 </div>
+                <div class="carousel-container relative md:mt-0 -mt-10">
+    <div id="carousel" class="flex overflow-hidden transition-transform duration-300 font-body text-button-size">
+        {% assign collection_handle = 'giyim' %}
+        {% for product in collections[collection_handle].products %}
+            <div class="carousel-slide pl-0 p-6">
+                {% if product.images.size > 0 %}
+                    <img id="productImage-{{ product.id }}" src="{{ product.images.first | img_url: 'original' }}" alt="{{ product.title }}">
+                {% else %}
+                    <p class="text-red-500">Görsel yüklenmedi.</p>
+                {% endif %}
+                <h3 class="font-body text-button-size mt-4">{{ product.title }}</h3>
+                <div class="flex flex-col md:flex-row justify-between mt-2">
+                    <span class="font-semibold">{{ product.price | money }}</span>
+                    <div class="flex space-x-2 mt-2 md:mt-0">
+                        {% assign hasAvailableVariant = false %}
+                        {% for variant in product.variants %}
+                            {% if variant.available %}
+                                {% assign hasAvailableVariant = true %}
+                                {% assign color_key = variant.option1 | downcase %}
+                                {% capture color_value %}
+                                {% for color in color_map %}
+                                    {% assign parts = color | split: ":" %}
+                                    {% if parts[0] == color_key %}
+                                        {{ parts[1] }}
+                                    {% endif %}
+                                {% endfor %}
+                                {% endcapture %}
+                                {% if color_value != blank %}
+                                    <div class="color-button rounded-full w-3 h-3 cursor-pointer"
+                                        style="background-color: #99C3CC;"
+                                        onclick="changeImage('/cdn/shop/files/bg-1_2_1024x1024.png?v=1727293430', this, '8383225397384')">
+                                    </div>
+                                {% else %}
+                                    <div class="text-red-500">Renk tanımlanmamış: {{ color_key }}</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if hasAvailableVariant == false %}
+                            <div class="text-red-500">Varyant mevcut değil.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <button id="scrollRight" class="absolute border border-light-600 right-3 top-1/2 transform -translate-y-1/2 bg-transparent text-black p-2 z-10 custom-hidden">
+        <img src="{{ 'icon-arrow.svg' | asset_url }}" alt="Arrow">
+    </button>
+</div>
             </div>
         </div>
     </div>
