@@ -1,5 +1,9 @@
 {
   "sections": {
+    "case-section": {
+      "type": "case-section",
+      "settings": {}
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -70,6 +74,7 @@
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "case-section"
   ]
 }
