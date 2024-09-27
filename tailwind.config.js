@@ -43,6 +43,11 @@ module.exports = {
         'custom-purple': '#CB99CC',
         'custom-green': '#BCD9B2',
       },
+      container: {
+        screens: {
+          lg: "1920px",
+        },
+      },
     },
   },
   variants: {},

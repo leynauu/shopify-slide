@@ -1,7 +1,11 @@
 const slider = document.getElementById('carousel');
+const scrollRightButton = document.getElementById('scrollRight');
 let isDown = false;
 let startX;
+let startY;
+let isDragging = false;
 let scrollLeft;
+const SCROLL_AMOUNT = 500;
 
 slider.addEventListener('mousedown', (e) => {
     isDown = true;
@@ -21,31 +25,51 @@ slider.addEventListener('mouseleave', () => {
 });
 
 slider.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const SCROLL_SPEED = 1;
-    const walk = (x - startX) * SCROLL_SPEED;
-    slider.scrollLeft = scrollLeft - walk;
+    const x = e.clientX - slider.getBoundingClientRect().left;
+    const SCROLL_DISTANCE = 20;
+    if (x < 100) {
+        slider.scrollLeft -= SCROLL_DISTANCE;
+    } else if (x > slider.offsetWidth - 100) {
+        slider.scrollLeft += SCROLL_DISTANCE;
+    }
 });
 
 slider.addEventListener('touchstart', (e) => {
     isDown = true;
-    slider.classList.add('active');
     startX = e.touches[0].pageX - slider.offsetLeft;
+    startY = e.touches[0].pageY;
     scrollLeft = slider.scrollLeft;
-});
+    isDragging = false;
+}, { passive: true });
+
+slider.addEventListener('touchmove', (e) => {
+    const moveX = e.touches[0].pageX - startX;
+    const moveY = e.touches[0].pageY - startY;
+
+    if (Math.abs(moveY) > Math.abs(moveX)) {
+        return;
+    }
+
+    isDragging = true;
+    e.preventDefault();
+    const SCROLL_SPEED = 1;
+    slider.scrollLeft = scrollLeft - (moveX * SCROLL_SPEED);
+}, { passive: false });
 
 slider.addEventListener('touchend', () => {
     isDown = false;
-    slider.classList.remove('active');
+}, { passive: false });
+
+scrollRightButton.addEventListener('click', () => {
+    slider.scrollLeft += SCROLL_AMOUNT;
 });
 
-slider.addEventListener('touchmove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.touches[0].pageX - slider.offsetLeft;
-    const SCROLL_SPEED = 1;
-    const walk = (x - startX) * SCROLL_SPEED;
-    slider.scrollLeft = scrollLeft - walk;
-});
+function changeImage(imageUrl, element) {
+    const colorButtons = document.querySelectorAll('.color-button');
+    colorButtons.forEach(button => button.classList.remove('selected'));
+
+    element.classList.add('selected');
+
+    const productImage = document.getElementById('productImage');
+    productImage.src = imageUrl;
+}
