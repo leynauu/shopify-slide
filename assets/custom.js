@@ -71,5 +71,7 @@ function changeImage(imageUrl, element, productId) {
     element.classList.add('selected');
 
     const productImage = document.getElementById(`productImage-${productId}`);
-    productImage.src = imageUrl;
+    if (productImage) {
+        productImage.src = imageUrl;
+    }
 }

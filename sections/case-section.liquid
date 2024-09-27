@@ -70,15 +70,15 @@
                         {{ section.settings.button_text }}
                     </a>
                 </div>
-                <div class="carousel-container relative md:mt-0 -mt-10">
+               <div class="carousel-container relative md:mt-0 -mt-10">
                     <div id="carousel" class="flex overflow-hidden transition-transform duration-300 font-body text-button-size">
                         {% assign collection_handle = 'giyim' %}
                         {% for product in collections[collection_handle].products %}
                             <div class="carousel-slide pl-0 p-6">
                                 {% if product.images.size > 0 %}
-                                 <a href="{{ product.url }}">
-                                    <img id="productImage-{{ product.id }}" src="{{ product.images.first | img_url: 'original' }}" alt="{{ product.title }}">
-                                </a>
+                                    <a href="{{ product.url }}">
+                                        <img id="productImage-{{ product.id }}" src="{{ product.images.first | img_url: 'original' }}" alt="{{ product.title }}">
+                                    </a>
                                 {% else %}
                                     <p class="text-red-500">Görsel yüklenmedi.</p>
                                 {% endif %}
@@ -92,17 +92,17 @@
                                                 {% assign hasAvailableVariant = true %}
                                                 {% assign color_key = variant.option1 | downcase %}
                                                 {% capture color_value %}
-                                                {% for color in color_map %}
-                                                    {% assign parts = color | split: ":" %}
-                                                    {% if parts[0] == color_key %}
-                                                        {{ parts[1] }}
-                                                    {% endif %}
-                                                {% endfor %}
+                                                    {% for color in color_map %}
+                                                        {% assign parts = color | split: ":" %}
+                                                        {% if parts[0] == color_key %}
+                                                            {{ parts[1] }}
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 {% endcapture %}
                                                 {% if color_value != blank %}
                                                     <div class="color-button rounded-full w-3 h-3 cursor-pointer"
-                                                        style="background-color: #99C3CC;"
-                                                        onclick="changeImage('/cdn/shop/files/bg-1_2_1024x1024.png?v=1727293430', this, '8383225397384')">
+                                                        style="background-color: {{ color_value }};"
+                                                        onclick="changeImage('{{ variant.image | img_url: 'original' }}', this, '{{ product.id }}')">
                                                     </div>
                                                 {% else %}
                                                     <div class="text-red-500">Renk tanımlanmamış: {{ color_key }}</div>
