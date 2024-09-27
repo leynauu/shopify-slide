@@ -11,6 +11,7 @@ module.exports = {
       margin: {
         '5': '2rem',
         '10': '5rem',
+        '15': '15rem',
       },
       padding: {
         '15': '15rem',
@@ -46,7 +47,8 @@ module.exports = {
       },
       container: {
         screens: {
-          lg: "1920px",
+          lg: "1720px",
+          xl: "1920px",
         },
       },
     },

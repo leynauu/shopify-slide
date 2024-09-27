@@ -1,12 +1,16 @@
-.carousel-inner {
-    display: flex;
-    overflow: hidden;
-    width: 100%;
+#carousel {
+    scroll-behavior: smooth;
+    transition: opacity 0.3s ease;
+    overflow-x: hidden;
 }
 
 .carousel-slide {
     min-width: 44.44%;
     transition: transform 0.5s ease;
+}
+
+.carousel-container {
+    width: 100%;
 }
 
 .carousel-container button {
@@ -24,4 +28,25 @@
 .color-button.selected {
     transform: scale(1.2);
     border: 1px solid black;
+}
+
+
+.title-p {
+    padding-right: 30rem;
+    padding-top: 15rem;
+    padding-left: 15rem;
+}
+
+
+@media (max-width: 1720px) {
+    .title-p {
+        padding-right: 10rem;
+        padding-top: 5rem;
+    }
+
+    .title-size {
+        font-size: 26px;
+        line-height: 28px;
+    }
+
 }

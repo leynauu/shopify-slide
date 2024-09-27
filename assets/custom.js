@@ -1,38 +1,13 @@
 const slider = document.getElementById('carousel');
 const scrollRightButton = document.getElementById('scrollRight');
+const scrollLeftButton = document.getElementById('scrollLeft');
 let isDown = false;
 let startX;
 let startY;
 let isDragging = false;
 let scrollLeft;
+let rightButtonActive = true;
 const SCROLL_AMOUNT = 500;
-
-slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    slider.classList.add('active');
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('mouseup', () => {
-    isDown = false;
-    slider.classList.remove('active');
-});
-
-slider.addEventListener('mouseleave', () => {
-    isDown = false;
-    slider.classList.remove('active');
-});
-
-slider.addEventListener('mousemove', (e) => {
-    const x = e.clientX - slider.getBoundingClientRect().left;
-    const SCROLL_DISTANCE = 20;
-    if (x < 100) {
-        slider.scrollLeft -= SCROLL_DISTANCE;
-    } else if (x > slider.offsetWidth - 100) {
-        slider.scrollLeft += SCROLL_DISTANCE;
-    }
-});
 
 slider.addEventListener('touchstart', (e) => {
     isDown = true;
@@ -60,9 +35,45 @@ slider.addEventListener('touchend', () => {
     isDown = false;
 }, { passive: false });
 
+function applyFadeEffect() {
+    slider.style.opacity = '0.5';
+    setTimeout(() => {
+        slider.style.opacity = '1';
+    }, 300);
+}
+
 scrollRightButton.addEventListener('click', () => {
     slider.scrollLeft += SCROLL_AMOUNT;
+    applyFadeEffect();
+    scrollLeftButton.classList.remove('hidden');
+    scrollRightButton.classList.add('hidden');
 });
+
+scrollLeftButton.addEventListener('click', () => {
+    slider.scrollLeft -= SCROLL_AMOUNT;
+    applyFadeEffect();
+    if (slider.scrollLeft <= 0) {
+        scrollLeftButton.classList.add('hidden');
+    } else {
+        scrollRightButton.classList.remove('hidden');
+    }
+});
+
+scrollLeftButton.classList.add('hidden');
+scrollRightButton.classList.remove('hidden');
+
+function checkScrollPosition() {
+    if (slider.scrollLeft <= 0) {
+        scrollLeftButton.classList.add('hidden');
+        scrollRightButton.classList.remove('hidden');
+    } else if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth) {
+        scrollRightButton.classList.add('hidden');
+        scrollLeftButton.classList.remove('hidden');
+    }
+}
+
+slider.addEventListener('scroll', checkScrollPosition);
+
 
 function changeImage(imageUrl, element, productId) {
     const colorButtons = document.querySelectorAll('.color-button');

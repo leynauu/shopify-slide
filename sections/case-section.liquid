@@ -58,9 +58,9 @@
                 </div>
             </div>
 
-            <div class="w-full md:w-1/2 md:p-15 md:pr-0 pl-10 md:pb-0">
-                <div class="pr-30 custom-hidden">
-                    <h2 class="font-custom text-custom-size leading-custom-line-height font-custom-weight mb-2">
+            <div class="w-full md:w-1/2">
+                <div class="custom-hidden title-p mb-10">
+                    <h2 class="md:font-custom text-custom-size title-size leading-custom-line-height font-custom-weight mb-2">
                         {{ section.settings.title }}
                     </h2>
                     <p class="text-gray-700 mb-5">
@@ -71,7 +71,7 @@
                     </a>
                 </div>
                <div class="carousel-container relative md:mt-0 -mt-10">
-                    <div id="carousel" class="flex overflow-hidden transition-transform duration-300 font-body text-button-size">
+                    <div id="carousel" class="flex overflow-hidden transition-transform duration-300 font-body text-button-size ml-5 md:ml-15">
                         {% assign collection_handle = 'giyim' %}
                         {% for product in collections[collection_handle].products %}
                             <div class="carousel-slide pl-0 p-6">
@@ -117,8 +117,11 @@
                             </div>
                         {% endfor %}
                     </div>
+                    <button id="scrollLeft" class="absolute border border-light-600 left-3 top-1/2 transform -translate-y-1/2 bg-transparent text-black p-2 z-10 custom-hidden ml-15">
+                        <img src="{{ 'icon-arrow-left.svg' | asset_url }}" alt="Left Arrow">
+                    </button>
                     <button id="scrollRight" class="absolute border border-light-600 right-3 top-1/2 transform -translate-y-1/2 bg-transparent text-black p-2 z-10 custom-hidden">
-                        <img src="{{ 'icon-arrow.svg' | asset_url }}" alt="Arrow">
+                        <img src="{{ 'icon-arrow-right.svg' | asset_url }}" alt="Right Arrow">
                     </button>
                 </div>
             </div>

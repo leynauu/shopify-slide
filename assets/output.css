@@ -558,6 +558,12 @@ video {
   width: 100%;
 }
 
+@media (min-width: 1720px) {
+  .container {
+    max-width: 1720px;
+  }
+}
+
 @media (min-width: 1920px) {
   .container {
     max-width: 1920px;
@@ -608,6 +614,10 @@ video {
   inset: 0px;
 }
 
+.left-3 {
+  left: 0.75rem;
+}
+
 .right-3 {
   right: 0.75rem;
 }
@@ -638,6 +648,14 @@ video {
 
 .mb-5 {
   margin-bottom: 2rem;
+}
+
+.ml-15 {
+  margin-left: 15rem;
+}
+
+.ml-5 {
+  margin-left: 2rem;
 }
 
 .mt-2 {
@@ -784,14 +802,6 @@ video {
   padding-left: 0px;
 }
 
-.pl-10 {
-  padding-left: 2.5rem;
-}
-
-.pr-30 {
-  padding-right: 30rem;
-}
-
 .font-body {
   font-family: Avenir, sans-serif;
 }
@@ -910,6 +920,10 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:ml-15 {
+    margin-left: 15rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -922,15 +936,7 @@ video {
     flex-direction: row;
   }
 
-  .md\:p-15 {
-    padding: 15rem;
-  }
-
-  .md\:pb-0 {
-    padding-bottom: 0px;
-  }
-
-  .md\:pr-0 {
-    padding-right: 0px;
+  .md\:font-custom {
+    font-family: "ITC Avant Garde Gothic Pro", sans-serif;
   }
 }
